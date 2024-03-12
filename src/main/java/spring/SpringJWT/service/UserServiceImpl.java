@@ -1,5 +1,8 @@
 package spring.SpringJWT.service;
 
+import ch.qos.logback.classic.Logger;
+import lombok.Getter;
+import lombok.Setter;
 import spring.SpringJWT.model.Role;
 import spring.SpringJWT.model.User;
 import spring.SpringJWT.repo.RoleRepo;
@@ -18,15 +21,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service @RequiredArgsConstructor @Transactional @Slf4j
+@Service
+@Transactional
+
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
 
+    Logger log;
+    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username);
+
         if (user == null){
             log.error("user not found in database");
             throw new UsernameNotFoundException("user not found in database");

@@ -1,5 +1,7 @@
 package spring.SpringJWT.api;
 
+import lombok.Getter;
+import lombok.Setter;
 import spring.SpringJWT.model.Role;
 import spring.SpringJWT.model.User;
 import spring.SpringJWT.service.UserService;
@@ -26,10 +28,14 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api")
-@RequiredArgsConstructor
+@RequestMapping("/api2")
+
 public class UserController {
     private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers(){
@@ -86,8 +92,25 @@ public class UserController {
         }
     }
 }
-@Data
+
+
 class RoleToUser{
     private String username;
     private String roleName;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 }
