@@ -28,7 +28,7 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api2")
+@RequestMapping("/api")
 
 public class UserController {
     private final UserService userService;

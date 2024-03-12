@@ -1,5 +1,7 @@
 package spring.SpringJWT.filter;
 
+import antlr.ASTFactory;
+import ch.qos.logback.classic.Logger;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -51,6 +53,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request,response);
                 }catch (Exception e){
+                    Logger log = null;
                     log.error("Error login in {}",e.getMessage());
                     response.setHeader("error",e.getMessage());
                     response.setStatus(FORBIDDEN.value());

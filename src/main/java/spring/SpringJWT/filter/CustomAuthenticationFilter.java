@@ -1,5 +1,6 @@
 package spring.SpringJWT.filter;
 
+import ch.qos.logback.classic.Logger;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    Logger log;
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
     }
@@ -34,6 +36,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
         log.info("username is {} ",username);
         log.info("password is {} ",password);
         UsernamePasswordAuthenticationToken authenticationToken =
